@@ -1,0 +1,11 @@
+anonymous
+administrator
+ftp
+test
+admin
+web
+www
+root
+db
+wwwroot
+data

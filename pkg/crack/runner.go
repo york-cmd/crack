@@ -60,12 +60,13 @@ func (r *Runner) Crack(addr *IpAddr, userDict []string, passDict []string) (resu
 	}
 	if len(passDict) == 0 {
 		passDict = append(passDict, TemplatePass...)
-		passDict = append(passDict, CommonPass...)
+		//passDict = append(passDict, CommonPass...)
+		passDict = PassMap[addr.Protocol]
 	}
 	for _, user := range userDict {
 		for _, pass := range passDict {
 			// 替换{user}
-			pass = strings.ReplaceAll(pass, "{user}", user)
+			pass = strings.ReplaceAll(pass, "%user%", user)
 			// 任务去重
 			taskHash = utils.Md5(fmt.Sprintf("%v%v%v%v%v", addr.Ip, addr.Port, addr.Protocol, user, pass))
 			if taskHashMap[taskHash] {
